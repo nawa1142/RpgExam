@@ -4,14 +4,14 @@
     </header>
     <div class="container text-center mt-2 mb-3">
         <div class="row m-0 p-0">
-            <div class="col-8">
+            <div class="col-md-12 col-lg-8">
                 <iframe width="100%" height="100%" src="https://www.youtube.com/embed/044xrQEJxis?si=S5lA7qBVKPhU26QK"
                     title="YouTube video player" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowfullscreen></iframe>
             </div>
-            <div class="col-4">
-                <div class="d-flex flex-column justify-content-around">
+            <div class="col-md-12 col-lg-4">
+                <div class="d-flex flex-column justify-content-around h-100">
                     <div class="p-2 rounded mb-2 shadow-lg">
                         <div id="EventBannerCarousel" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-indicators">
@@ -117,17 +117,12 @@ useHead({
 </script>
 
 <style scoped>
-/* header {
-    margin: 0;
-    padding: 0;
-    border: none;
-}*/
-
 footer {
     margin: 0;
     padding: 0;
     border: none;
     bottom: 0;
-    position: absolute;
+    width: 100%;
+    z-index: 1000;
 }
 </style>
