@@ -96,17 +96,19 @@
                                 <form @submit.prevent="login">
                                     <div class="row mb-3">
                                         <label for="emil" class="mb-1"><b>อีเมล</b></label>
-                                        <input v-model="user.email" type="email" class="input rounded-3 border-0 text-center"
-                                            placeholder="Enter your E-mail" name="email" required />
+                                        <input v-model="user.email" type="email"
+                                            class="input rounded-3 border-0 text-center" placeholder="Enter your E-mail"
+                                            name="email" required />
                                     </div>
                                     <div class="row mb-3">
                                         <label for="password" class="mb-1"><b>พาสเวิร์ด</b></label>
-                                        <input v-model="user.password" type="password" class="input rounded-3 border-0 text-center"
+                                        <input v-model="user.password" type="password"
+                                            class="input rounded-3 border-0 text-center"
                                             placeholder="Enter your Password" name="password" required />
                                     </div>
                                     <div class="row">
                                         <div class="text-center mt-2">
-                                            <button type="submit" class="btn btn-primary">
+                                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
                                                 เข้าสู่ระบบ
                                             </button>
                                         </div>
@@ -135,7 +137,7 @@
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                     ยกเลิก
                                 </button>
-                                <button type="button" class="btn btn-danger" @click="logout">
+                                <button type="button" class="btn btn-danger" @click="logout" data-bs-dismiss="modal">
                                     ล็อกเอาต์
                                 </button>
                             </div>
