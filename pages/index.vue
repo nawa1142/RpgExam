@@ -5,10 +5,12 @@
     <div class="container text-center mt-2 mb-3">
         <div class="row m-0 p-0">
             <div class="col-md-12 col-lg-8">
-                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/044xrQEJxis?si=S5lA7qBVKPhU26QK"
-                    title="YouTube video player" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowfullscreen></iframe>
+                <div class="w-100 h-100">
+                    <iframe height="100%" width="100%"
+                        src="https://www.youtube.com/embed/qLZenOn7WUo?si=fNGbHaebPlF90H6-" title="YouTube video player"
+                        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;"
+                        allowfullscreen></iframe>
+                </div>
             </div>
             <div class="col-md-12 col-lg-4">
                 <div class="d-flex flex-column justify-content-around h-100">
