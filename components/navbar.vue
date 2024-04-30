@@ -178,7 +178,8 @@ const login = async () => {
     errors.value = null;
     try {
         await useStore.logIn(user.value);
-        const token = useCookie('token').value; // เข้าถึงค่า token ผ่าน property value
+        const isToken = useCookie('token');
+        const token = isToken.value
         if (token) {
             navigateTo("characters");
             console.log("login success");
