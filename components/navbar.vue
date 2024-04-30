@@ -165,19 +165,32 @@ const { authenticateUser } = useAuthStore();
 
 //auth user
 const { authenticated } = storeToRefs(useAuthStore());
+const useStore = useAuthStore()
 
 const user = ref({
     email: "",
     password: "",
 });
+const errors = ref(null);
 
 //ฟังชั่นจัดการ
 const login = async () => {
-    await authenticateUser(user.value);
-    if (authenticated) {
-        navigateTo("characters");
+    errors.value = null;
+    try {
+        await useStore.logIn(user.value);
+        const token = useCookie('token').value; // เข้าถึงค่า token ผ่าน property value
+        if (token) {
+            navigateTo("characters");
+            console.log("login success");
+        } else {
+            alert("มีข้อผิดพลาดรหัสผ่านหรืออีเมลไม่ถูกต้อง"); 
+            location.reload();
+        }
+    } catch (error) {
+        console.log(error);
     }
 };
+
 
 const logout = async () => {
     try {

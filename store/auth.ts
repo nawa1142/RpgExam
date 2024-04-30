@@ -8,11 +8,10 @@ interface UserPayloadInterface {
 export const useAuthStore = defineStore("auth", {
   state: () => ({
     authenticated: false,
-    loading: false,
   }),
   actions: {
-    async authenticateUser({ email, password }: UserPayloadInterface) {
-      const { data, pending }: any = await useFetch("api/login", {
+    async logIn({ email, password }: UserPayloadInterface) {
+      const { data }: any = await useFetch("api/login", {
         method: "post",
         headers: { "Content-Type": "application/json" },
         body: {
@@ -20,7 +19,6 @@ export const useAuthStore = defineStore("auth", {
           password,
         },
       });
-      this.loading = pending;
 
       if (data.value) {
         const token = useCookie("token"/* , {
@@ -38,13 +36,13 @@ export const useAuthStore = defineStore("auth", {
 
         token.value = data?.value?.token;
         userId.value = data?.value?.id;
-        this.authenticated = true;
+        this.$state.authenticated = true;
       }
     },
     logUserOut() {
       const token = useCookie("token");
       const userId = useCookie("id");
-      this.authenticated = false;
+      this.$state.authenticated = false;
       token.value = null;
       userId.value = null;
     },
