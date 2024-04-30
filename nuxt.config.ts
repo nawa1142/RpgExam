@@ -26,8 +26,6 @@ export default defineNuxtConfig({
 
   css: ["bootstrap/dist/css/bootstrap.css", "@/assets/main.css"],
 
-  ssr:false, 
-
   app: {
     head: {
       meta: [
