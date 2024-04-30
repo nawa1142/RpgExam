@@ -5,8 +5,6 @@ const ONE_WEEK = ONE_DAY * 7;
 export default defineNuxtConfig({
   modules: ["@pinia/nuxt"],
 
-  ssr: true,
-
   runtimeConfig: {
     dburl: process.env.DATABASE_URL,
     dbName: process.env.DBNAME,
