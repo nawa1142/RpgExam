@@ -7,11 +7,17 @@ export default defineEventHandler(async (event) => {
   const userData = await userModel.findOne({ email: loginBody.email });
 
   if (!userData) {
-    return { error: "User not found" };
+    throw createError({
+      statusCode: 404,
+      message: "Email address not found",
+    });
   } else {
     const match = await bcrypt.compare(loginBody.password, userData.password);
     if (!match) {
-      return { error: "Incorrect password" };
+      throw createError({
+        statusCode: 401,
+        message: "Incorrect password",
+      });
     } else {
       const config = useRuntimeConfig();
 

@@ -32,8 +32,11 @@ export const useAuthStore = defineStore("authStore", {
           this._userId = data?.value?.id;
           this.token = data?.value?.token;
         }
+        if (error) {
+          return { error };
+      }
       } catch (error) {
-        return error;
+        return { error };
       }
     },
     logOut() {

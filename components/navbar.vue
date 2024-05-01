@@ -149,7 +149,7 @@
     </nav>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { useAuthStore } from "~/stores/auth";
 
 //route manage
@@ -169,20 +169,15 @@ const user = ref({
 //ฟังชั่นจัดการ
 const login = async () => {
     try {
-        await authStore.logIn(user.value);  
+        await authStore.logIn(user.value);
         if (!authStore.isLogin) {
-            alert("มีข้อผิดพลาดรหัสผ่านหรืออีเมลไม่ถูกต้อง"); 
-            location.reload();            
+            alert("มีข้อผิดพลาดรหัสผ่านหรืออีเมลไม่ถูกต้อง");
+            location.reload();
         } else {
             navigateTo("characters");
         }
     } catch (error) {
-        console.error("เกิดข้อผิดพลาดในการล็อคอิน:", error);
-        if (error.response) {
-            console.error("ข้อผิดพลาด:", error.response.data);
-        } else {
-            console.error("ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้");
-        }
+        console.error(error);
     }
 };
 
