@@ -48,12 +48,12 @@
                 <!-- ส่วนปุ่มคำสั่งของผู้ใช้ -->
                 <div class="nav-item">
                     <div class="d-flex">
-                        <button v-if="authenticated && !isRegistry" type="button"
+                        <button v-if="authStore.isLogin && !isRegistry" type="button"
                             class="buttonHover btn text-danger-emphasis bg-danger-subtle me-2">
                             <NuxtLink to="UserEdit" class="text-danger-emphasis text-decoration-none">แก้ไขข้อมูล
                             </NuxtLink>
                         </button>
-                        <button v-if="isHomePage && authenticated" type="button"
+                        <button v-if="authStore.isLogin && isHomePage" type="button"
                             class="buttonHover btn text-danger-emphasis bg-danger-subtle me-2">
                             <NuxtLink to="characters" class="text-danger-emphasis text-decoration-none">ตัวละคร
                             </NuxtLink>
@@ -63,17 +63,17 @@
                             <NuxtLink to="/characters" class="text-danger-emphasis text-decoration-none">ย้อนกลับ
                             </NuxtLink>
                         </button>
-                        <button v-if="authenticated" type="button"
+                        <button v-if="authStore.isLogin" type="button"
                             class="buttonHover btn text-danger-emphasis bg-danger-subtle me-2" data-bs-toggle="modal"
                             data-bs-target="#logoutModal">
                             ออกจากระบบ
                         </button>
-                        <button v-if="!authenticated" type="button"
+                        <button v-if="!authStore.isLogin" type="button"
                             class="buttonHover btn text-danger-emphasis bg-danger-subtle me-2" data-bs-toggle="modal"
                             data-bs-target="#loginModal">
                             เข้าสู่ระบบ
                         </button>
-                        <button v-if="!authenticated" type="button"
+                        <button v-if="!authStore.isLogin" type="button"
                             class="buttonHover btn text-danger-emphasis bg-danger-subtle me-2">
                             <NuxtLink to="UserRegister" class="text-danger-emphasis text-decoration-none">
                                 สมัครสมาชิก
@@ -150,8 +150,7 @@
 </template>
 
 <script setup>
-import { storeToRefs } from "pinia";
-import { useAuthStore } from "~/store/auth";
+import { useAuthStore } from "~/stores/auth";
 
 //route manage
 const route = useRoute();
@@ -159,43 +158,37 @@ const isHomePage = route.name === "index";
 const isDynamicRoute = computed(() => route.path.startsWith('/characters/'))
 const isRegistry = route.name === "UserEdit";
 
-//define function
-const { logUserOut } = useAuthStore();
-const { authenticateUser } = useAuthStore();
-
-//auth user
-const { authenticated } = storeToRefs(useAuthStore());
-const useStore = useAuthStore()
+//define store
+const authStore = useAuthStore();
 
 const user = ref({
     email: "",
     password: "",
 });
-const errors = ref(null);
 
 //ฟังชั่นจัดการ
 const login = async () => {
-    errors.value = null;
     try {
-        await useStore.logIn(user.value);
-        const isToken = useCookie('token');
-        const token = isToken.value
-        if (token) {
-            navigateTo("characters");
-            console.log("login success");
-        } else {
+        await authStore.logIn(user.value);  
+        if (!authStore.isLogin) {
             alert("มีข้อผิดพลาดรหัสผ่านหรืออีเมลไม่ถูกต้อง"); 
-            location.reload();
+            location.reload();            
+        } else {
+            navigateTo("characters");
         }
     } catch (error) {
-        console.log(error);
+        console.error("เกิดข้อผิดพลาดในการล็อคอิน:", error);
+        if (error.response) {
+            console.error("ข้อผิดพลาด:", error.response.data);
+        } else {
+            console.error("ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้");
+        }
     }
 };
 
-
 const logout = async () => {
     try {
-        logUserOut();
+        authStore.logOut();
         if (route.name !== "index") {
             navigateTo("/");
         } else {

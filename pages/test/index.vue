@@ -5,45 +5,48 @@
     </div>
     <div class="container form">
       <label for="email"><b>email</b></label>
-      <input v-model="user.email" type="text" class="input" placeholder="Enter email" name="email" required />
+      <input v-model="payload.email" type="text" class="input" placeholder="Enter email" name="email" required />
 
       <label for="psw"><b>Password</b></label>
-      <input v-model="user.password" type="password" class="input" placeholder="Enter Password" name="psw" required />
+      <input v-model="payload.password" type="password" class="input" placeholder="Enter Password" name="psw"
+        required />
 
       <button @click.prevent="login" class="button">Login</button>
       <button @click.prevent="logout" class="button">Logout</button>
-      <button @click.prevent="getUser" class="button">getuser</button>
-    </div>
-    <div>
-      <h1>{{ user.firstname }} {{ user.lastname }}</h1>
-      <p>อายุ: {{ user.age }}</p>
-      <p>อีเมล: {{ user.email }}</p>
-      <p>เพศ: {{ user.gender }}</p>
+      <button @click.prevent="checkState" class="button">checkState</button>
     </div>
   </div>
 </template>
 
+
 <script lang="ts" setup>
-import getUser from "~/composables/oneUser";
-const { user } = getUser();
+
+const payload = {
+  email: "",
+  password: ""
+}
 
 //ยืนยันตน
-import { storeToRefs } from "pinia";
-import { useAuthStore } from "~/store/auth";
-const { logUserOut } = useAuthStore();
-const { authenticateUser } = useAuthStore();
-const { authenticated } = storeToRefs(useAuthStore());
+import { useAuthStore } from "~/stores/auth";
+const authStore = useAuthStore();
 
 const login = async () => {
-  await authenticateUser(user.value);
-  if (authenticated) {
-    navigateTo("/");
+  await authStore.logIn(payload);
+  if (authStore.isLogin) {
+    navigateTo("character");
   }
 };
+
+const checkState = () => {
+    const userId = authStore._userId;
+    const token = authStore.token;
+    console.log(userId, token);
+};
+
 const logout = async () => {
   try {
-    logUserOut();
-    navigateTo("/login");
+    authStore.logOut();
+    navigateTo("/");
   } catch (error) {
     console.error(error);
   }

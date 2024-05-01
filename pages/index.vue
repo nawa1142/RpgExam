@@ -5,7 +5,7 @@
     <div class="container text-center mt-2 mb-3">
         <div class="row m-0 p-0">
             <div class="col-md-12 col-lg-8">
-                <div class="w-100 h-100">
+                <div class="w-100 h-100">                   
                     <iframe height="100%" width="100%"
                         src="https://www.youtube.com/embed/qLZenOn7WUo?si=fNGbHaebPlF90H6-" title="YouTube video player"
                         frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;"
@@ -110,7 +110,6 @@
 </template>
 
 <script setup>
-
 const $route = useRoute();
 
 useHead({

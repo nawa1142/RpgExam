@@ -19,14 +19,6 @@ export default defineEventHandler(async (event) => {
         expiresIn: "1h",
       });
 
-      /* setCookie(event, config.cookieName, token, {
-        httpOnly: true,
-        path: "/",
-        sameSite: "none",
-        secure: process.env.NODE_ENV === "production",
-        expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
-      });
-       */
       return {
         id: userData._id,
         /*email: userData.email,

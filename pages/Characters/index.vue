@@ -87,8 +87,6 @@ import useCharacters from "~/composables/allCharacters";
 
 const { characters } = useCharacters();
 
-const showModal = ref(false);
-
 const newCharacter = ref({
   name: "",
   age: null,
