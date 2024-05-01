@@ -92,7 +92,7 @@ const getCharacter = async () => {
             navigateTo('/characters')
         }
         character.value = result[0]; //ต้องเป็นอาเรย์ลำดับ 0 เพราะข้อมูลที่ได้มาเป็น [{}]
-        console.log(result);
+        
     } catch (err) {
         console.error(err);
     }
